@@ -1,3 +1,4 @@
+from keys import chrome_driver_path
 from pyparsing import Opt
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -22,7 +23,6 @@ class Selenium_tw(Twitch_Api):
             options = Options()
             options.add_extension("twitch_shazam/Shazam.crx")
             options.add_extension("twitch_shazam/Twitch-Adblock.crx")
-            chrome_driver_path = r"C:\Users\skarl\Documents\chromedriver"
             self.driver = webdriver.Chrome(chrome_driver_path,options=options)
             self.wait = WebDriverWait(self.driver, 10)
             
