@@ -21,8 +21,8 @@ class Selenium_tw(Twitch_Api):
             
             #setup selenium https://stackoverflow.com/a/44363549
             options = Options()
-            options.add_extension("twitch_shazam/Shazam.crx")
-            options.add_extension("twitch_shazam/Twitch-Adblock.crx")
+            options.add_extension("Shazam.crx")
+            options.add_extension("Twitch-Adblock.crx")
             self.driver = webdriver.Chrome(chrome_driver_path,options=options)
             self.driver.implicitly_wait(10)
             self.wait = WebDriverWait(self.driver, 10)
