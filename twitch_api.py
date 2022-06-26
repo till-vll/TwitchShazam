@@ -62,12 +62,15 @@ class Twitch_Api: #https://dev.twitch.tv/docs/api/reference#get-streams
             return None
         
         request = self.make_api_request(f"https://api.twitch.tv/helix/streams?user_login={self.channel_name}")
-        request = request[0]
+        try:
+            request = request[0]
+        except IndexError:
+            return False
         if request["type"] == "live":
             return True
         else:
             return False
     
 
-# test = Twitch_Api("noway4u_sir")
-# print(test.check_live())
+#test = Twitch_Api("noway4u_sir")
+#print(test.check_live())

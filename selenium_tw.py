@@ -8,7 +8,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 from pyshadow.main import Shadow
-from pykeyboard import PyKeyboard ##https://pypi.org/project/PyUserInput/
+from pykeyboard import PyKeyboard #https://pypi.org/project/PyUserInput/
 from time import sleep
 from twitch_api import Twitch_Api
 
@@ -16,16 +16,16 @@ class Selenium_tw(Twitch_Api):
     def __init__(self, channel_name:str) -> None:
         '''Setup selenium browser. Requires streamer to listen to and if that streamer has a +18 banner. Opens witch, acccepts cookies and extension sets shortcut'''
         Twitch_Api.__init__(self, channel_name)
+        #setup selenium https://stackoverflow.com/a/44363549
+        options = Options()
+        options.add_extension("Shazam.crx")
+        options.add_extension("Twitch-Adblock.crx")
+        self.driver = webdriver.Chrome(chrome_driver_path,options=options)
+        self.wait = WebDriverWait(self.driver, 10)
         
         #if the username cannot be found -> id == None, so Selenium won't init
         if self.check_live(): 
             
-            #setup selenium https://stackoverflow.com/a/44363549
-            options = Options()
-            options.add_extension("Shazam.crx")
-            options.add_extension("Twitch-Adblock.crx")
-            self.driver = webdriver.Chrome(chrome_driver_path,options=options)
-            self.wait = WebDriverWait(self.driver, 10)
             
             #setup twitch 
             self.driver.get(f"https://twitch.com/{self.channel_name}")
@@ -133,10 +133,13 @@ class Selenium_tw(Twitch_Api):
 
 
 
-# test = Selenium_tw("noway4u_sir")
-# for i in range(3):
-#     test.try_shazam()
-#     sleep(15)
+test = Selenium_tw("noway4u_sir")
+if test.check_live():
+    for i in range(3):
+        test.try_shazam()
+        sleep(15)
+else:
+    test.close_all()
 
 # songs = test.get_songs()
 # print(songs)
