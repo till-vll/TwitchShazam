@@ -1,0 +1,6 @@
+selenium
+pyshadow
+requests
+google-auth-oauthlib
+google-api-python-client
+pykeyboard
